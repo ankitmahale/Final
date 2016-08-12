@@ -1,0 +1,78 @@
+Queries
+
+GET AUTO COMPLETE SCHOOL
+input-> school name (character by character)
+output-> school id,name,city,state
+db.getCollection('school').find({ 'sch_name': /^School/ }, {'sch_name': 1,'sch_city' : 1,'sch_state' : 1, '_id' : 1})
+
+
+POST Registration details
+input->all registration details.
+output-> gets saved in users and school.
+
+TO UPDATE USERS COLLECTION
+
+{
+    "fname" : "pranav",
+    "lname" : "bhandari",
+    "dob" : "06-06-1993",
+    "email" : "pbhanda1@binghamton.edu",
+    "password" : "pranav123",
+    "usr_img" : "http://google.com/",
+    "usr_created" : "",
+    "usr_passion" : [ 
+        {
+            "passion" : "Cricket"
+        }, 
+        {
+            "passion" : "Gymnastics"
+        }
+    ],
+    "projects" : [ 
+       
+    ],
+    "school" : [ 
+        {
+           
+            "sch_name" : "School1",
+            "sch_grade" : "Elementary school",
+            "sch_grad_date" : "05-15-2012"
+        }, 
+        {
+            
+            "sch_name" : "School1",
+            "sch_grade" : "High school",
+            "sch_grad_date" : "05-20-2017"
+        }, 
+        {
+            
+            "sch_name" : "School2",
+            "sch_grade" : "Middle",
+            "sch_grad_date" : "05-20-2014"
+        }
+    ],
+    "followers" : [ 
+        
+    ]
+    
+}
+
+
+TO UPDATE SCHOOL AND ADD A USER
+db.school.update(
+    { "_id" : ObjectId("200000000000000000000001")}, 
+    {$push: {'users': {"user_id": ObjectId("000000000000000000000001"), "user_fname":"pranav", "user_lname" : "bhandari"}}}
+)
+
+db.schools.update(
+    { "_id" : ObjectId("200000000000000000000001")}, 
+    {$push: { users : {
+            "user_id" : ObjectId("000000000000000000000003"),
+            "user_fname" : "divya",
+            "user_lname" : "ladwa"
+        }}}
+)
+
+
+
+
